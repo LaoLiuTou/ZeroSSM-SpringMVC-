@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>管理员登录</title>
+    <link rel="stylesheet" href="Css/pintuer.css">
+    <link rel="stylesheet" href="Css/admin.css">
+    <script src="Js/jquery.js"></script>
+    <script src="Js/pintuer.js"></script>
+    <script src="Js/respond.js"></script>
+    <script src="Js/admin.js"></script>
+     
+    <link type="text/css" href="msgbox/msgbox.css" rel="stylesheet"  />
+    <script type="text/javascript" src="msgbox/msgbox.js"></script>
+
+   <script type="text/javascript">
+		$(document).ready(function(){
+		$(document).keyup(function(event){
+		  if(event.keyCode ==13){
+		    	    if($("#username").val()==""){
+			    	alert("用户名不能为空！");
+			    	return false;
+			    }
+			    if($("#password").val()==""){
+			    	alert("密码不能为空！");
+			    	return false;
+			    }
+			    
+		   ZENG.msgbox.show(" 正在登陆中，请稍后...", 6);
+			  	 
+			    $.ajax({
+		             //url:'loginAnjian_user.action',
+		             url:'loginUsertable.action',
+		             type:"POST",
+		             
+		             //dataType : "json",
+		             //data : {'username':$("#username").val(),'password':$("#password").val()},
+		             data : 'username='+$("#username").val()+'&password='+$("#password").val(),
+		             success:function(response) {
+		             ZENG.msgbox._hide();
+		                if(response!=""){
+		                  alert(response);
+		                }
+		                else{
+		                 location.href="index.jsp";
+		                }
+		                
+		                
+		             },
+		             error:function(response){
+		            // alert(response);
+		             ZENG.msgbox.show("服务器繁忙，请稍后再试。", 1, 2000); 
+		             	//alert("操作失败！");
+		             }   
+	            });
+		  
+		  }
+		});
+		  $('#loginButton').click(function(){
+		 
+		   //ZENG.msgbox.show("设置成功！", 4, 2000); 
+		  // ZENG.msgbox.show("服务器繁忙，请稍后再试。", 1, 2000); 
+		 //ZENG.msgbox.show("数据拉取失败", 5, 2000); 
+		  /// 
+		 //ZENG.msgbox._hide();
+		 //ZENG.msgbox.show(" 正在加载中，请稍后...", 6); 
+		 
+		    if($("#username").val()==""){
+			    	alert("用户名不能为空！");
+			    	return false;
+			    }
+			    if($("#password").val()==""){
+			    	alert("密码不能为空！");
+			    	return false;
+			    }
+			    ZENG.msgbox.show(" 正在登陆中，请稍后...", 6);
+		
+			    $.ajax({
+		             //url:'loginAnjian_user.action',
+		             url:'loginUsertable.action',
+		             type:"POST",
+		             
+		             //dataType : "json",
+		             //data : {'username':$("#username").val(),'password':$("#password").val()},
+		             data : 'username='+$("#username").val()+'&password='+$("#password").val(),
+		             success:function(response) {
+		             	ZENG.msgbox._hide();
+		                 if(response!=""){
+		                 
+		                  alert(response);
+		                }
+		                else{
+		                 location.href="index.jsp";
+		                }
+		                
+		             },
+		             error:function(response){
+		             //alert(response);
+		             ZENG.msgbox.show("服务器繁忙，请稍后再试。", 1, 2000); 
+		             	//alert("操作失败！");
+		             }   
+	            });
+		 
+		  });
+		 
+		
+		});
+	
+	</script>
+   
+</head>
+
+<body>
+<div class="container">
+    <div class="line">
+        <div class="xs6 xm4 xs3-move xm4-move">
+            <br /><br />
+            <div class="media media-y">
+                <a href="#" target="_blank"></a>
+            </div>
+            <br /><br />
+             
+            <div class="panel">
+                <div class="panel-head"><strong>登录后台管理系统</strong></div>
+                <div class="panel-body" style="padding:30px;">
+                    <div class="form-group">
+                        <div class="field field-icon-right">
+                            <input type="text" class="input" name="username" id="username" placeholder="登录账号" data-validate="required:请填写账号,length#>=4:账号长度不符合要求" />
+                            <span class="icon icon-user"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="field field-icon-right">
+                            <input type="password" class="input" name="password" id="password" placeholder="登录密码" data-validate="required:请填写密码,length#>=6:密码长度不符合要求" />
+                            <span class="icon icon-key"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!--<div class="field">
+                            <input type="text" class="input" name="passcode" placeholder="填写右侧的验证码" data-validate="required:请填写右侧的验证码" />
+                            <img src="images/passcode.jpg" width="80" height="32" class="passcode" />
+                        </div>-->
+                    </div>
+                </div>
+                <div class="panel-foot text-center"><button class="button button-block bg-main text-big" id="loginButton">立即登录后台</button></div>
+            </div>
+            
+            <!--<div class="text-right text-small text-gray padding-top">基于<a class="text-gray" target="_blank" href="#">拼图前端框架</a>构建</div>-->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
