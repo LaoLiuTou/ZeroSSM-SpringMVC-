@@ -204,7 +204,7 @@ public class WriteController {
         sb.append("				resultMap.put(\"msg\", \"参数不能为空！\");\n"); 
         sb.append("			}\n"); 
         sb.append("			else{\n"); 
-        sb.append("				int updateSelect=i"+lowerName+"Service.update"+lowerName+"("+tableName.toLowerCase()+");\n");
+        sb.append("				int resultUpdate=i"+lowerName+"Service.update"+lowerName+"("+tableName.toLowerCase()+");\n");
         sb.append("				resultMap.put(\"status\", \"0\");\n"); 
         sb.append("				resultMap.put(\"msg\", \"更新成功！\");\n"); 
         sb.append("				logger.info(\"更新成功，主键：\"+"+tableName.toLowerCase()+".get"+toUpperCaseFirstOne(pKey.toLowerCase())+"());\n"); 
@@ -248,7 +248,7 @@ public class WriteController {
         sb.append("				resultMap.put(\"msg\", \"参数不能为空！\");\n"); 
         sb.append("			}\n"); 
         sb.append("			else{\n"); 
-        sb.append("				int updateSelect=i"+lowerName+"Service.update"+lowerName+"("+tableName.toLowerCase()+");\n");
+        sb.append("				int resultDelete=i"+lowerName+"Service.delete"+lowerName+"("+tableName.toLowerCase()+".get"+toUpperCaseFirstOne(pKey.toLowerCase())+"()"+"+\"\");\n");
         sb.append("				resultMap.put(\"status\", \"0\");\n"); 
         sb.append("				resultMap.put(\"msg\", \"删除成功！\");\n"); 
         sb.append("				logger.info(\"删除成功，主键：\"+"+tableName.toLowerCase()+".get"+toUpperCaseFirstOne(pKey.toLowerCase())+"());\n"); 

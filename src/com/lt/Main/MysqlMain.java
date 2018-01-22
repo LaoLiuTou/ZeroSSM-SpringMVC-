@@ -654,6 +654,7 @@ public class MysqlMain {
 			} */
 			
 			
+			tableList.add("accnt"); 
 			tableList.add("area"); 
 			//tableList.add("group_status"); 
 			 
