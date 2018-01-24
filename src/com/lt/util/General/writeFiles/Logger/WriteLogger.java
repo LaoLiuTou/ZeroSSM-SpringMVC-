@@ -55,9 +55,9 @@ public class WriteLogger {
             
             sb.append("log4j.logger."+pb.getProjectName()+"Logger=INFO,A\n");   
             sb.append("log4j.appender.A=org.apache.log4j.DailyRollingFileAppender\n");   
-            sb.append("log4j.appender.R.File=../logs/"+pb.getProjectName()+"Logger.log\n");   
+            sb.append("log4j.appender.A.File=${catalina.home}/logs/"+pb.getProjectName()+"Logger.log\n");   
             sb.append("log4j.appender.A.layout=org.apache.log4j.PatternLayout\n");   
-            sb.append("log4j.appender.A.layout.ConversionPattern=[Check](%F:%L)%d|%m%n\n");  
+            sb.append("log4j.appender.A.layout.ConversionPattern=["+pb.getProjectName()+"](%F:%L)%d|%m%n\n");  
              
             		
             out.write(sb.toString().getBytes("utf-8"));
