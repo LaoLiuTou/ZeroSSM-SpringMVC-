@@ -80,6 +80,22 @@ public class WriteWeb {
             sb.append("     <param-value>"+project+".root</param-value>\n");
             sb.append("   </context-param>\n");
             
+            sb.append("   <filter>\n");  
+            sb.append("   	<filter-name>CORSFilter</filter-name> \n"); 
+            sb.append("   	<filter-class>com."+project.toLowerCase()+".utils.CORSFilter</filter-class> \n"); 
+            sb.append("   </filter> \n");
+            sb.append("   <filter-mapping>  \n");
+            sb.append("   	<filter-name>CORSFilter</filter-name> \n"); 
+            sb.append("   	<url-pattern>/*</url-pattern> \n"); 
+            sb.append("   </filter-mapping>\n");
+          
+            sb.append("  <servlet-mapping>\n");    
+            sb.append("  	<servlet-name>default</servlet-name>\n");    
+            sb.append("  	<url-pattern>*.js</url-pattern> \n");   
+            sb.append("  	<url-pattern>*.css</url-pattern> \n");   
+            sb.append("  	<url-pattern>/upload/*</url-pattern> \n");   
+            sb.append("  </servlet-mapping> \n");
+            		 
             sb.append("  <servlet>\n");
             sb.append("  	<servlet-name>spring</servlet-name>\n");
             sb.append("  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>\n");

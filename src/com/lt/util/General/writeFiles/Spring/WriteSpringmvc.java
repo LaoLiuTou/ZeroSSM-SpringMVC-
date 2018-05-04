@@ -60,6 +60,7 @@ public class WriteSpringmvc {
             sb.append("		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd\">\n");
             sb.append("	<!-- 自动扫描controller包下的所有类，使其认为是spring mvc的控制器 路径即为类路径 -->\n");
             sb.append("	<context:component-scan base-package=\"com."+pb.getProjectName().toLowerCase()+".controller\"></context:component-scan>\n");
+            sb.append("	<mvc:default-servlet-handler/>  \n");
             sb.append("	<mvc:annotation-driven>  \n");
             sb.append("	<!-- 处理responseBody 里面日期类型 -->\n");
             sb.append("		<mvc:message-converters>  \n");
@@ -76,7 +77,14 @@ public class WriteSpringmvc {
             sb.append("			</bean>\n");
             sb.append("		</mvc:message-converters>\n");
             sb.append("	</mvc:annotation-driven>\n");
-             
+            
+            sb.append("	<!-- 多部分文件上传 -->\n");
+            sb.append("	<bean id=\"multipartResolver\" class=\"org.springframework.web.multipart.commons.CommonsMultipartResolver\">\n");  
+            sb.append("		<property name=\"defaultEncoding\" value=\"utf-8\"></property>\n");   
+            sb.append("		<property name=\"maxUploadSize\" value=\"10485760000\"></property>\n");  
+            sb.append("		<property name=\"maxInMemorySize\" value=\"40960\"></property> \n"); 
+            sb.append("	</bean>\n"); 
+            
             sb.append("	<!-- 配置视图解析器 如何把handler 方法返回值解析为实际的物理视图  根据控制器返回的字符串拼接成jsp路径：/WEB-INF/jsp/xx.jsp -->\n");
             sb.append("	<bean class=\"org.springframework.web.servlet.view.InternalResourceViewResolver\">\n");
             sb.append("		<property name = \"prefix\" value=\"/WEB-INF/jsp/\"></property>\n");

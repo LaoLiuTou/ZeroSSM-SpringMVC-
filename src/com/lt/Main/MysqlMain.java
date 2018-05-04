@@ -35,6 +35,9 @@ import com.lt.util.General.writeFiles.WebService.WriteWebService;
 import com.lt.util.General.writeFiles.WebService.WriteWebServiceImpl;
 import com.lt.util.General.writeFiles.project.WriteProject;
 import com.lt.util.General.writeFiles.servlet.WriteServlet;
+import com.lt.util.General.writeFiles.utils.WriteCORSFilter;
+import com.lt.util.General.writeFiles.utils.WriteFileUpload;
+import com.lt.util.General.writeFiles.utils.WriteJsonObjectMapper;
  
 
 public class MysqlMain {
@@ -115,6 +118,13 @@ public class MysqlMain {
 			writeController();
 			//servlet
 			//WriteServlet.writeServlet();
+			
+			//utils  and upload 
+			WriteCORSFilter.writeCORSFilter();
+			
+			WriteJsonObjectMapper.writeJsonObjectMapper();
+			
+			WriteFileUpload.writeFileUpload();
 			
 			log.info("Over!!!"); 
 		}
@@ -626,9 +636,9 @@ public class MysqlMain {
 		 */
 		public static List getTables(){
 			List tableList = new ArrayList();
-			JdbcBean jb=new JdbcBean();
+			/*JdbcBean jb=new JdbcBean();
 			 
-			 /*Connection con = null; //表示数据库的连接对象  
+			Connection con = null; //表示数据库的连接对象  
 	        Statement stmt = null;  //表示数据库的更新操作  
 	        ResultSet result = null; //表示接收数据库的查询结果  
 	        try {
@@ -654,8 +664,12 @@ public class MysqlMain {
 			} */
 			
 			
-			tableList.add("accnt"); 
-			tableList.add("area"); 
+			tableList.add("deer"); 
+			tableList.add("rule"); 
+			tableList.add("rule_item"); 
+			 
+			//tableList.add("area"); 
+			
 			//tableList.add("group_status"); 
 			 
 			//tableList.add("lot"); 

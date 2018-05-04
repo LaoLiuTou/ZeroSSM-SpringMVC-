@@ -62,7 +62,7 @@ public class WriteXml {
             if(!pKey.equals("")&&pKey!=null){
             	sb.append("	<select id=\"select"+tableName+"ById\" parameterType=\"String\" resultType=\""+lowerName+"\">\n");
             	sb.append("		SELECT * FROM "+tableName+" WHERE "+pKey.toUpperCase()+"=#{"+pKey.toLowerCase()+"}\n");
-            	sb.append("	</select>\n\n");
+            	sb.append("	</select>\n");
             	sb.append("\n");
             	sb.append("	<delete id=\"delete"+tableName+"\" parameterType=\"String\"> \n");
             	sb.append("		DELETE FROM "+tableName+" WHERE "+pKey.toUpperCase()+"=#{"+pKey.toLowerCase()+"}\n");
