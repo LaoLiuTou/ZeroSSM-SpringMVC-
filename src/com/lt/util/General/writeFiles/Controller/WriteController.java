@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import org.springframework.stereotype.Controller;
-
 import com.lt.util.ProjectBean;
 
 public class WriteController {
@@ -58,6 +56,7 @@ public class WriteController {
             sb.append("package com."+pb.getProjectName().toLowerCase()+".controller."+tableName.toLowerCase()+";\n");
             
             sb.append("import java.text.SimpleDateFormat;\n");
+            sb.append("import java.util.ArrayList;\n");
             sb.append("import java.util.Date;\n");
             sb.append("import java.util.HashMap;\n");
             sb.append("import java.util.List;\n");
@@ -66,11 +65,13 @@ public class WriteController {
             sb.append("import javax.servlet.ServletException;\n");
             sb.append("import javax.servlet.http.HttpServletRequest;\n");
             sb.append("import javax.servlet.http.HttpServletResponse;\n");
-            sb.append("import org.apache.log4j.Logger;\n"); 
+            sb.append("import org.apache.log4j.Logger;\n");  
             sb.append("import org.springframework.beans.factory.annotation.Autowired;\n"); 
             sb.append("import org.springframework.stereotype.Controller;\n"); 
             sb.append("import org.springframework.web.bind.annotation.RequestMapping;\n"); 
             sb.append("import org.springframework.web.bind.annotation.ResponseBody;\n"); 
+            sb.append("import com.fasterxml.jackson.databind.JavaType;\n"); 
+            sb.append("import com.fasterxml.jackson.databind.ObjectMapper;\n"); 
             sb.append("import com."+pb.getProjectName().toLowerCase()+".service."+tableName.toLowerCase()+".I"+lowerName+"Service;\n");
             sb.append("import com."+pb.getProjectName().toLowerCase()+".model."+tableName.toLowerCase()+"."+lowerName+";\n");
             sb.append("@Controller\n");
@@ -116,7 +117,7 @@ public class WriteController {
         sb.append("		try {\n"); 
         sb.append("			i"+lowerName+"Service.add"+lowerName+"("+tableName.toLowerCase()+");\n"); 
         sb.append("			resultMap.put(\"status\", \"0\");\n"); 
-        sb.append("			resultMap.put(\"msg\", "+tableName.toLowerCase()+".getId());\n"); 
+        sb.append("			resultMap.put(\"msg\", "+tableName.toLowerCase()+".get"+toUpperCaseFirstOne(pKey.toLowerCase())+"());\n"); 
         sb.append("			logger.info(\"新建成功，主键：\"+"+tableName.toLowerCase()+".get"+toUpperCaseFirstOne(pKey.toLowerCase())+"());\n"); 
         sb.append("		} catch (Exception e) {\n"); 
         sb.append("			resultMap.put(\"status\", \"-1\");\n"); 
@@ -131,6 +132,53 @@ public class WriteController {
         log.info(sb.toString()) ;        
         out.close();
     }
+	/**
+	 * 添加 muladd  函数
+	 * 
+	 * @return
+	 */
+	public  void addmulAddFunction(String tableName,String pKey) throws IOException{
+		Logger log = Logger.getLogger("ZeroLog"); 
+		String lowerName= toUpperCaseFirstOne(tableName.toLowerCase()) ;
+		ProjectBean pb=new ProjectBean();
+		String url=pb.getProjectUrl()+"/"+pb.getProjectName()+"/"+"src/com/"+pb.getProjectName().toLowerCase()
+				+"/controller/"+tableName+"/"+lowerName+"Controller.java";
+		
+		File file=new File(url);
+		
+		if(!file.exists())
+			file.createNewFile();
+		
+		FileOutputStream out=new FileOutputStream(file,true); 
+		StringBuffer sb=new StringBuffer();
+		sb.append("	@SuppressWarnings({ \"rawtypes\", \"unchecked\" })\n"); 
+		sb.append("	@RequestMapping(\"/muladd"+lowerName+"\")\n"); 
+		sb.append("	@ResponseBody\n"); 
+		sb.append("	public Map muladd(HttpServletRequest request,"+lowerName+" "+tableName.toLowerCase()+"){\n"); 
+		sb.append("		Map resultMap=new HashMap();\n"); 
+		sb.append("		try {\n"); 
+		sb.append("			String data=request.getParameter(\"data\");\n"); 
+		sb.append("			ObjectMapper objectMapper = new ObjectMapper();\n"); 
+		sb.append("			JavaType javaType = objectMapper.getTypeFactory().constructParametricType(ArrayList.class, "+lowerName+".class);\n"); 
+		sb.append("			List<"+lowerName+"> list = (List<"+lowerName+">)objectMapper.readValue(data, javaType);\n"); 
+		//sb.append("			List<"+lowerName+"> list=(List<"+lowerName+">) JSONArray.toCollection(dataJA,"+lowerName+".class);\n"); 
+		sb.append("			i"+lowerName+"Service.muladd"+lowerName+"(list);\n"); 
+		sb.append("			resultMap.put(\"status\", \"0\");\n"); 
+		sb.append("			resultMap.put(\"msg\", \"新建成功\");\n"); 
+		sb.append("			logger.info(\"新建成功，主键：\"+"+tableName.toLowerCase()+".get"+toUpperCaseFirstOne(pKey.toLowerCase())+"());\n"); 
+		sb.append("		} catch (Exception e) {\n"); 
+		sb.append("			resultMap.put(\"status\", \"-1\");\n"); 
+		sb.append("			resultMap.put(\"msg\", \"新建失败！\");\n"); 
+		sb.append("			logger.info(\"新建失败！\"+e.getLocalizedMessage());\n"); 
+		sb.append("			e.printStackTrace();\n"); 
+		sb.append("		}\n"); 
+		sb.append("		return resultMap;\n"); 
+		sb.append("	}\n"); 
+		
+		out.write(sb.toString().getBytes("utf-8"));
+		log.info(sb.toString()) ;        
+		out.close();
+	}
 	
 	/**
 	 * 添加 select 函数

@@ -35,6 +35,9 @@ import com.lt.util.General.writeFiles.WebService.WriteWebService;
 import com.lt.util.General.writeFiles.WebService.WriteWebServiceImpl;
 import com.lt.util.General.writeFiles.project.WriteProject;
 import com.lt.util.General.writeFiles.servlet.WriteServlet;
+import com.lt.util.General.writeFiles.utils.WriteCORSFilter;
+import com.lt.util.General.writeFiles.utils.WriteFileUpload;
+import com.lt.util.General.writeFiles.utils.WriteJsonObjectMapper;
  
 
 public class OracleMain {
@@ -114,6 +117,13 @@ public class OracleMain {
 		writeController();
 		//servlet
 		//WriteServlet.writeServlet();
+		
+		//utils  and upload 
+		WriteCORSFilter.writeCORSFilter();
+		
+		WriteJsonObjectMapper.writeJsonObjectMapper();
+		
+		WriteFileUpload.writeFileUpload();
 		log.info("Over!!!");
 	}
 	/**
@@ -282,6 +292,21 @@ public class OracleMain {
 				wx.appendInsertFiles3(tableName, (String)l.get(0));
 			}
 			wx.addInsertEnd(tableName,pKey,dbType);
+			wx.addmulStart(tableName, pKey);
+			//循环列
+			for(int j=0;j<columnSize;j++){
+	        	List l=(List) columnMap.get(j+1);
+	        	if(!((String)l.get(0)).toUpperCase().equals(pKey.toUpperCase()))
+				wx.addmulInsertFiles1(tableName, (String)l.get(0));
+			}
+			wx.addmulInsertFiles2(tableName,pKey);
+			//循环列
+			for(int j=0;j<columnSize;j++){
+	        	List l=(List) columnMap.get(j+1);
+	        	if(!((String)l.get(0)).toUpperCase().equals(pKey.toUpperCase()))
+				wx.addmulInsertFiles3(tableName, (String)l.get(0));
+			}
+			wx.addmulInsertEnd(tableName,pKey,dbType);
 		}
 		
 	}
@@ -317,7 +342,8 @@ public class OracleMain {
 		WriteMapper wd = new WriteMapper();
 		for(int i=0;i<size;i++){
 			String tableName=tableList.get(i).toString();
-			wd.writeDao(tableName);
+			String pKey=getPKey(tableName);
+			wd.writeDao(pKey,tableName);
 		}
 	}
 	
@@ -341,7 +367,8 @@ public class OracleMain {
 		WriteService wd = new WriteService();
 		for(int i=0;i<size;i++){
 			String tableName=tableList.get(i).toString();
-			wd.writeService(tableName);
+			String pKey=getPKey(tableName);
+			wd.writeService(pKey,tableName);
 		}
 	}
 	
@@ -353,7 +380,8 @@ public class OracleMain {
 		WriteServiceImpl wdi = new WriteServiceImpl();
 		for(int i=0;i<size;i++){
 			String tableName=tableList.get(i).toString();
-			wdi.writeServiceImpl(tableName);
+			String pKey=getPKey(tableName);
+			wdi.writeServiceImpl(pKey,tableName);
 		}
 	}
 	
@@ -592,6 +620,7 @@ public class OracleMain {
 			Map columnMap = getColumn(tableName);
 			wc.writeController(tableName, pKey);
 			wc.addAddFunction(tableName, pKey);
+			wc.addmulAddFunction(tableName, pKey);
 			wc.addDeleteFunction(tableName, pKey);
 			wc.addSelectFunction(tableName, pKey);
 			wc.addUpdateFunction(tableName, pKey);

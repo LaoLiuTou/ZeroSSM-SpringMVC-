@@ -60,7 +60,7 @@ public class WriteXml {
             sb.append("\"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\n");
             sb.append("<mapper namespace=\"com."+pb.getProjectName().toLowerCase()+".dao."+tableName.toLowerCase()+".I"+lowerName+"Mapper\"> \n");
             if(!pKey.equals("")&&pKey!=null){
-            	sb.append("	<select id=\"select"+tableName+"ById\" parameterType=\"String\" resultType=\""+lowerName+"\">\n");
+            	sb.append("	<select id=\"select"+tableName+"By"+toUpperCaseFirstOne(pKey.toLowerCase())+"\" parameterType=\"String\" resultType=\""+lowerName+"\">\n");
             	sb.append("		SELECT * FROM "+tableName+" WHERE "+pKey.toUpperCase()+"=#{"+pKey.toLowerCase()+"}\n");
             	sb.append("	</select>\n");
             	sb.append("\n");
@@ -247,6 +247,7 @@ public class WriteXml {
         log.info(sb.toString()) ;       
         out.close();
     }
+	
 	/**
 	 * 添加update尾，insert 头
 	 * 
@@ -273,7 +274,7 @@ public class WriteXml {
         }
         sb.append("	</update>\n\n");
        
-        sb.append("	<insert id=\"add"+tableName+"\" parameterType=\""+lowerName+"\">\n"); 
+        sb.append("	<insert id=\"add"+tableName+"\" parameterType=\""+lowerName+"\" keyProperty=\"id\" useGeneratedKeys=\"true\">\n"); 
         sb.append("		INSERT INTO "+tableName+" \n");  
         
         sb.append("		<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\" >\n"); 
@@ -395,8 +396,136 @@ public class WriteXml {
 	        sb.append("		</selectKey> \n"); 
         }
         sb.append("	</insert>\n");
-        sb.append("</mapper>\n");
         
+    }
+	/**
+	 * 添加尾，mulinsert 头
+	 * 
+	 * @return
+	 */
+	public  void addmulStart(String tableName,String pKey) throws IOException{
+		Logger log = Logger.getLogger("ZeroLog"); 
+		String lowerName= toUpperCaseFirstOne(tableName.toLowerCase()) ;
+		ProjectBean pb=new ProjectBean();
+		String url=pb.getProjectUrl()+"/"+pb.getProjectName()+"/"+"src/com/"+pb.getProjectName().toLowerCase()
+		+"/model/"+tableName.toLowerCase()+"/"+lowerName+".xml";
+		 
+        File file=new File(url);
+        
+        if(!file.exists())
+            file.createNewFile();
+        
+        FileOutputStream out=new FileOutputStream(file,true); 
+        StringBuffer sb=new StringBuffer();
+        sb.append("		</trim>\n");   
+        sb.append("	</insert>\n\n");
+        sb.append("	<insert id=\"muladd"+tableName+"\" parameterType=\"java.util.List\" keyProperty=\"id\" useGeneratedKeys=\"true\">\n"); 
+        sb.append("		<foreach collection=\"list\" item=\"item\" index=\"index\" open=\"\"\n"); 
+        sb.append("			close=\"\" separator=\";\">\n"); 
+        sb.append("			INSERT INTO "+tableName+" \n"); 
+        sb.append("			<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\" >\n"); 
+			
+        out.write(sb.toString().getBytes("utf-8"));
+             
+        out.close();
+    }
+	
+	/**
+	 * 动态添加mulinsert中间内容
+	 * 
+	 * @return
+	 */
+	public  void addmulInsertFiles1(String tableName,String colName) throws IOException{
+		Logger log = Logger.getLogger("ZeroLog");   
+		String lowerName= toUpperCaseFirstOne(tableName.toLowerCase()) ;
+		ProjectBean pb=new ProjectBean();
+		String url=pb.getProjectUrl()+"/"+pb.getProjectName()+"/"+"src/com/"+pb.getProjectName().toLowerCase()
+		+"/model/"+tableName.toLowerCase()+"/"+lowerName+".xml";
+		 
+        File file=new File(url);
+         
+        if(!file.exists())
+            file.createNewFile();
+        FileOutputStream out=new FileOutputStream(file,true); 
+        StringBuffer sb=new StringBuffer();
+        sb.append("				<if test=\"item."+colName.toLowerCase()+" != null\">"  +colName.toUpperCase()+", </if>\n");
+        out.write(sb.toString().getBytes("utf-8"));
+        log.info(sb.toString()) ;       
+        out.close();
+    }
+	/**
+	 * 动态添加mulinsert中间内容
+	 * 
+	 * @return
+	 */
+	public  void addmulInsertFiles2(String tableName,String pKey) throws IOException{
+		Logger log = Logger.getLogger("ZeroLog");  
+		String lowerName= toUpperCaseFirstOne(tableName.toLowerCase()) ;
+		ProjectBean pb=new ProjectBean();
+		String url=pb.getProjectUrl()+"/"+pb.getProjectName()+"/"+"src/com/"+pb.getProjectName().toLowerCase()
+		+"/model/"+tableName.toLowerCase()+"/"+lowerName+".xml";
+		 
+        File file=new File(url);
+         
+        if(!file.exists())
+            file.createNewFile();
+        FileOutputStream out=new FileOutputStream(file,true); 
+        StringBuffer sb=new StringBuffer();
+        sb.append("			</trim>\n");  
+        sb.append("			<trim prefix=\"VALUES (\" suffix=\")\" suffixOverrides=\",\" >\n"); 
+        out.write(sb.toString().getBytes("utf-8"));
+        log.info(sb.toString()) ;       
+        out.close();
+    }
+	/**
+	 * 动态添加mulinsert中间内容
+	 * 
+	 * @return
+	 */
+	public  void addmulInsertFiles3(String tableName,String colName) throws IOException{
+		Logger log = Logger.getLogger("ZeroLog");  
+		String lowerName= toUpperCaseFirstOne(tableName.toLowerCase()) ;
+		ProjectBean pb=new ProjectBean();
+		String url=pb.getProjectUrl()+"/"+pb.getProjectName()+"/"+"src/com/"+pb.getProjectName().toLowerCase()
+		+"/model/"+tableName.toLowerCase()+"/"+lowerName+".xml";
+		 
+        File file=new File(url);
+         
+        if(!file.exists())
+            file.createNewFile();
+        FileOutputStream out=new FileOutputStream(file,true); 
+        StringBuffer sb=new StringBuffer();
+        
+        sb.append("				<if test=\"item."+colName.toLowerCase()+" != null\">"  +"#{item."+colName.toLowerCase()+"}, </if>\n");
+        
+        out.write(sb.toString().getBytes("utf-8"));
+        log.info(sb.toString()) ;       
+        out.close();
+    }
+	
+	/**
+	 * 添加mulinsert 尾
+	 * 
+	 * @return
+	 */
+	public  void addmulInsertEnd(String tableName,String pKey,String dbType) throws IOException{
+		Logger log = Logger.getLogger("ZeroLog"); 
+		String lowerName= toUpperCaseFirstOne(tableName.toLowerCase()) ;
+		ProjectBean pb=new ProjectBean();
+		String url=pb.getProjectUrl()+"/"+pb.getProjectName()+"/"+"src/com/"+pb.getProjectName().toLowerCase()
+		+"/model/"+tableName.toLowerCase()+"/"+lowerName+".xml";
+		 
+        File file=new File(url);
+        
+        if(!file.exists())
+            file.createNewFile();
+        
+        FileOutputStream out=new FileOutputStream(file,true); 
+        StringBuffer sb=new StringBuffer();
+        sb.append("			</trim>\n");   
+        sb.append("		</foreach>\n");   
+        sb.append("	</insert>\n");
+        sb.append("</mapper>\n"); 
         out.write(sb.toString().getBytes("utf-8"));
         log.info(sb.toString()) ;      
         log.info("创建文件"+tableName+".xml 成功！") ;       

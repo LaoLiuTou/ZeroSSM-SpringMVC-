@@ -15,7 +15,7 @@ public class WriteService {
 	 * 
 	 * @return
 	 */
-	public String writeService(String tableName){
+	public String writeService(String pKey,String tableName){
 		String lowerName= toUpperCaseFirstOne(tableName.toLowerCase()) ;
 		String status="success";
 		String url,dirs;
@@ -25,7 +25,7 @@ public class WriteService {
 		dirs=pb.getProjectUrl()+"/"+pb.getProjectName()+"/"+"src/com/"+pb.getProjectName().toLowerCase()
 			+"/service/"+tableName.toLowerCase()+"/";
 		try {
-			createFiles(dirs,url,tableName);
+			createFiles(dirs,url,pKey,tableName);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			status="failure";
@@ -39,7 +39,7 @@ public class WriteService {
 	 * 
 	 * @return
 	 */
-	public  void createFiles(String dirs,String url,String tableName) throws IOException{
+	public  void createFiles(String dirs,String url,String pKey,String tableName) throws IOException{
 		Logger log = Logger.getLogger("ZeroLog");  
 		String lowerName= toUpperCaseFirstOne(tableName.toLowerCase()) ;
 		ProjectBean pb=new ProjectBean();
@@ -62,7 +62,7 @@ public class WriteService {
             sb.append("	* 通过id选取\n");
             sb.append("	* @return\n");
             sb.append("	*/\n");
-            sb.append("	public "+lowerName+" select"+lowerName+"ById(String id);\n\n");
+            sb.append("	public "+lowerName+" select"+lowerName+"By"+toUpperCaseFirstOne(pKey.toLowerCase())+"(String id);\n\n");
             sb.append("	/**\n");
             sb.append("	* 通过查询参数获取信息\n");
             sb.append("	* @return\n");
@@ -85,6 +85,11 @@ public class WriteService {
             sb.append("	* @return\n");  
             sb.append("	*/ \n"); 
             sb.append("	public int add"+lowerName+"("+lowerName+" "+tableName.toLowerCase()+");\n\n");
+            sb.append("	/**\n");
+            sb.append("	* 批量添加 \n");
+            sb.append("	* @return\n");  
+            sb.append("	*/ \n"); 
+            sb.append("	public int muladd"+lowerName+"(List<"+lowerName+"> list);\n\n");
             sb.append("	/**\n");
             sb.append("	* 删除 \n");
             sb.append("	* @return \n"); 

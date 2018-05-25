@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lt.util.ProjectBean;
 
 public class WriteBean {
@@ -57,7 +58,7 @@ public class WriteBean {
             
             sb.append("package com."+pb.getProjectName().toLowerCase()+".model."+tableName.toLowerCase()+";\n"); 
             sb.append("import java.util.Date;\n");
-            sb.append("import org.springframework.format.annotation.DateTimeFormat;\n");
+            sb.append("import com.fasterxml.jackson.annotation.JsonFormat;\n");
             sb.append("/**\n");
             sb.append(" * @author LT\n");
             sb.append(" */\n");
@@ -101,7 +102,7 @@ public class WriteBean {
         }
         else if(type.toUpperCase().equals("DATE")){
 	        sb.append("	/** "+comments+" */\n"); 
-	        sb.append("	@DateTimeFormat(pattern=\"yyyy-MM-dd\")\n");
+	        sb.append("	@JsonFormat(pattern = \"yyyy-MM-dd\",timezone=\"GMT+8\")\n");
 	        sb.append("	private  Date "+colName.toLowerCase()+";\n");
 	        sb.append("	public Date get"+toUpperCaseFirstOne(colName.toLowerCase())+"() {\n");
 	        sb.append("		return "+colName.toLowerCase()+";\n");
@@ -113,7 +114,7 @@ public class WriteBean {
         }
         else if(type.toUpperCase().equals("DATETIME")){
 	        sb.append("	/** "+comments+" */\n"); 
-	        sb.append("	@DateTimeFormat(pattern=\"yyyy-MM-dd HH:mm:ss\")\n");
+	        sb.append("	@JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\",timezone=\"GMT+8\")\n");
 	        sb.append("	private  Date "+colName.toLowerCase()+";\n");
 	        sb.append("	public Date get"+toUpperCaseFirstOne(colName.toLowerCase())+"() {\n");
 	        sb.append("		return "+colName.toLowerCase()+";\n");

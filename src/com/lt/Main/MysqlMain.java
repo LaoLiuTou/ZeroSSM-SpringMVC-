@@ -293,7 +293,23 @@ public class MysqlMain {
 		        	if(!((String)l.get(0)).toUpperCase().equals(pKey.toUpperCase()))
 					wx.appendInsertFiles3(tableName, (String)l.get(0));
 				}
-				wx.addInsertEnd(tableName,pKey,dbType);
+				//wx.addInsertEnd(tableName,pKey,dbType);
+				
+				wx.addmulStart(tableName, pKey);
+				//循环列
+				for(int j=0;j<columnSize;j++){
+		        	List l=(List) columnMap.get(j+1);
+		        	//if(!((String)l.get(0)).toUpperCase().equals(pKey.toUpperCase()))
+					wx.addmulInsertFiles1(tableName, (String)l.get(0));
+				}
+				wx.addmulInsertFiles2(tableName,pKey);
+				//循环列
+				for(int j=0;j<columnSize;j++){
+		        	List l=(List) columnMap.get(j+1);
+		        	//if(!((String)l.get(0)).toUpperCase().equals(pKey.toUpperCase()))
+					wx.addmulInsertFiles3(tableName, (String)l.get(0));
+				}
+				wx.addmulInsertEnd(tableName,pKey,dbType);
 			}
 			
 		}
@@ -329,7 +345,8 @@ public class MysqlMain {
 			WriteMapper wd = new WriteMapper();
 			for(int i=0;i<size;i++){
 				String tableName=tableList.get(i).toString();
-				wd.writeDao(tableName);
+				String pKey=getPKey(tableName);
+				wd.writeDao(pKey,tableName);
 			}
 		}
 		
@@ -353,7 +370,8 @@ public class MysqlMain {
 			WriteService wd = new WriteService();
 			for(int i=0;i<size;i++){
 				String tableName=tableList.get(i).toString();
-				wd.writeService(tableName);
+				String pKey=getPKey(tableName);
+				wd.writeService(pKey,tableName);
 			}
 		}
 		
@@ -365,7 +383,8 @@ public class MysqlMain {
 			WriteServiceImpl wdi = new WriteServiceImpl();
 			for(int i=0;i<size;i++){
 				String tableName=tableList.get(i).toString();
-				wdi.writeServiceImpl(tableName);
+				String pKey=getPKey(tableName);
+				wdi.writeServiceImpl(pKey,tableName);
 			}
 		}
 		
@@ -611,6 +630,7 @@ public class MysqlMain {
 				Map columnMap = getColumn(tableName);
 				wc.writeController(tableName, pKey);
 				wc.addAddFunction(tableName, pKey);
+				wc.addmulAddFunction(tableName, pKey);
 				wc.addDeleteFunction(tableName, pKey);
 				wc.addSelectFunction(tableName, pKey);
 				wc.addUpdateFunction(tableName, pKey);
@@ -636,7 +656,7 @@ public class MysqlMain {
 		 */
 		public static List getTables(){
 			List tableList = new ArrayList();
-			/*JdbcBean jb=new JdbcBean();
+			JdbcBean jb=new JdbcBean();
 			 
 			Connection con = null; //表示数据库的连接对象  
 	        Statement stmt = null;  //表示数据库的更新操作  
@@ -661,12 +681,12 @@ public class MysqlMain {
 	        } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} */
+			} 
 			
 			
-			tableList.add("deer"); 
-			tableList.add("rule"); 
-			tableList.add("rule_item"); 
+			//tableList.add("house"); 
+			//tableList.add("rl_lov"); 
+			//tableList.add("sickness"); 
 			 
 			//tableList.add("area"); 
 			

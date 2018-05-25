@@ -17,7 +17,7 @@ public class WriteServiceImpl {
 	 * 
 	 * @return
 	 */
-	public String writeServiceImpl(String tableName){
+	public String writeServiceImpl(String pKey,String tableName){
 		String lowerName= toUpperCaseFirstOne(tableName.toLowerCase()) ;
 		String status="success";
 		String url,dirs;
@@ -27,7 +27,7 @@ public class WriteServiceImpl {
 		dirs=pb.getProjectUrl()+"/"+pb.getProjectName()+"/"+"src/com/"+pb.getProjectName().toLowerCase()
 			+"/service/"+tableName.toLowerCase()+"/";
 		try {
-			createFiles(dirs,url,tableName);
+			createFiles(dirs,url,pKey,tableName);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			status="failure";
@@ -41,7 +41,7 @@ public class WriteServiceImpl {
 	 * 
 	 * @return
 	 */
-	public  void createFiles(String dirs,String url,String tableName) throws IOException{
+	public  void createFiles(String dirs,String url,String pKey,String tableName) throws IOException{
 		Logger log = Logger.getLogger("ZeroLog");  
 		String lowerName= toUpperCaseFirstOne(tableName.toLowerCase()) ;
 		ProjectBean pb=new ProjectBean();
@@ -70,8 +70,8 @@ public class WriteServiceImpl {
             sb.append("	* @return\n");
             sb.append("	*/\n");
             //sb.append(" @Transactional\n");
-            sb.append("	public "+lowerName+" select"+lowerName+"ById(String id){\n");
-            sb.append("		return i"+lowerName+"Mapper.select"+tableName+"ById(id);\n");  
+            sb.append("	public "+lowerName+" select"+lowerName+"By"+toUpperCaseFirstOne(pKey.toLowerCase())+"(String id){\n");
+            sb.append("		return i"+lowerName+"Mapper.select"+tableName+"By"+toUpperCaseFirstOne(pKey.toLowerCase())+"(id);\n");  
             sb.append("	}\n\n");
             sb.append("	/**\n");
             sb.append("	* 通过查询参数获取信息\n");
@@ -106,6 +106,14 @@ public class WriteServiceImpl {
             sb.append("	@Transactional\n");
             sb.append("	public  int add"+lowerName+"("+lowerName+" "+tableName.toLowerCase()+"){\n");
             sb.append("		return i"+lowerName+"Mapper.add"+tableName+"("+tableName.toLowerCase()+");\n"); 
+            sb.append("	}\n\n");
+            sb.append("	/**\n");
+            sb.append("	* 批量添加 \n");
+            sb.append("	* @return\n");  
+            sb.append("	*/ \n"); 
+            sb.append("	@Transactional\n");
+            sb.append("	public  int muladd"+lowerName+"(List<"+lowerName+"> list){\n");
+            sb.append("		return i"+lowerName+"Mapper.muladd"+tableName+"(list);\n"); 
             sb.append("	}\n\n");
             sb.append("	/**\n");
             sb.append("	* 删除 \n");
