@@ -345,6 +345,7 @@ public class WriteController {
         sb.append("				Map paramMap=new HashMap();\n"); 
         sb.append("				paramMap.put(\"fromPage\",(Integer.parseInt(page)-1)*Integer.parseInt(size));\n"); 
         sb.append("				paramMap.put(\"toPage\",Integer.parseInt(size)); \n"); 
+        sb.append("				paramMap.put(\"orderBy\",\""+pKey.toUpperCase()+" DESC\"); \n"); 
         
         
        

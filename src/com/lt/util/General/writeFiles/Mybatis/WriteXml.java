@@ -163,7 +163,8 @@ public class WriteXml {
         StringBuffer sb=new StringBuffer();
         	sb.append("		</trim>  \n"); 
         if(!pKey.equals("")&&pKey!=null){	
-        	sb.append("		ORDER BY "+pKey.toUpperCase()+" DESC \n");
+        	//sb.append("		ORDER BY "+pKey.toUpperCase()+" DESC \n");
+        	sb.append("			<if test=\"orderBy!= null\"> ORDER BY   #{orderBy} </if>\n");
         }
         
         if(dbType.equals("oracle")){

@@ -656,7 +656,7 @@ public class MysqlMain {
 		 */
 		public static List getTables(){
 			List tableList = new ArrayList();
-			/*JdbcBean jb=new JdbcBean();
+			JdbcBean jb=new JdbcBean();
 			 
 			Connection con = null; //表示数据库的连接对象  
 	        Statement stmt = null;  //表示数据库的更新操作  
@@ -681,11 +681,10 @@ public class MysqlMain {
 	        } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} */
+			} 
 			
 			
-			tableList.add("varieties"); 
-			tableList.add("production"); 
+			//tableList.add("order_num"); 
 			//tableList.add("rl_lov"); 
 			//tableList.add("sickness"); 
 			 
