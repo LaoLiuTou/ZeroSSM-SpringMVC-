@@ -66,7 +66,7 @@ public class WriteSpringmvc {
             sb.append("		<mvc:message-converters>  \n");
             sb.append("			<bean class=\"org.springframework.http.converter.json.MappingJackson2HttpMessageConverter\">  \n");
             sb.append("				<property name=\"objectMapper\"> \n");
-            sb.append("					<bean class=\"com.fasterxml.jackson.databind.ObjectMapper\">\n");
+            sb.append("					<bean class=\"com."+project.toLowerCase()+".utils.JsonObjectMapper\">\n");
             sb.append("						<property name=\"dateFormat\">\n");
             sb.append("							<bean class=\"java.text.SimpleDateFormat\">\n");
             sb.append("								<constructor-arg type=\"java.lang.String\" value=\"yyyy-MM-dd HH:mm:ss\" />\n");
