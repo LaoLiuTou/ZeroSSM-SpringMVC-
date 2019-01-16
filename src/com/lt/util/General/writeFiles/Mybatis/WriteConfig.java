@@ -54,7 +54,8 @@ public class WriteConfig {
             sb.append("<configuration>\n");
             sb.append("	<settings>\n");
             
-            sb.append("		<setting name=\"logImpl\" value=\"STDOUT_LOGGING\"/> \n");
+            sb.append("		<!-- <setting name=\"logImpl\" value=\"STDOUT_LOGGING\"/>  -->\n");
+            sb.append("		<setting name=\"logImpl\" value=\"LOG4J\"/> \n");
             sb.append("		<setting name=\"cacheEnabled\" value=\"true\"/> \n");
             sb.append("		<setting name=\"lazyLoadingEnabled\" value=\"true\"/> \n");
             sb.append("		<setting name=\"multipleResultSetsEnabled\" value=\"true\"/> \n");

@@ -656,7 +656,7 @@ public class MysqlMain {
 		 */
 		public static List getTables(){
 			List tableList = new ArrayList();
-			JdbcBean jb=new JdbcBean();
+			/*JdbcBean jb=new JdbcBean();
 			 
 			Connection con = null; //表示数据库的连接对象  
 	        Statement stmt = null;  //表示数据库的更新操作  
@@ -681,7 +681,7 @@ public class MysqlMain {
 	        } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
+			} */
 			
 			
 			//tableList.add("order_num"); 
@@ -692,8 +692,16 @@ public class MysqlMain {
 			
 			//tableList.add("group_status"); 
 			 
-			//tableList.add("lot"); 
+			/*tableList.add("member"); 
+			tableList.add("expert"); 
+			tableList.add("illness"); 
+			tableList.add("problem"); 
+			tableList.add("drive"); */
+			tableList.add("income_dtl"); 
 
+		 
+			
+			
 			
 	        return tableList;
 			
@@ -763,7 +771,7 @@ public class MysqlMain {
 		        con = DriverManager.getConnection(jb.getDburl(),jb.getDbuser(),jb.getDbpassword());  
 		        stmt = con.createStatement();  
 		        result = stmt.executeQuery("select COLUMN_KEY,COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='"
-		        		+tableName+"' AND COLUMN_KEY='PRI';");
+		        		+tableName+"' AND COLUMN_KEY='PRI'  AND TABLE_SCHEMA ='"+jb.getDburl().split("/")[jb.getDburl().split("/").length-1]+"'"); 
 		        
 		        while (result.next()){  
 		        	 

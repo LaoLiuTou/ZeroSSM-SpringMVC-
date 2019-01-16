@@ -48,10 +48,10 @@ public class WriteLogger {
             FileOutputStream out=new FileOutputStream(file);        
             StringBuffer sb=new StringBuffer();
              
-            sb.append("log4j.rootCategory=ERROR, stdout \n");  
-            sb.append("log4j.appender.stdout=org.apache.log4j.ConsoleAppender\n");  
-            sb.append("log4j.appender.stdout.layout=org.apache.log4j.PatternLayout\n");  
-            sb.append("log4j.appender.stdout.layout.ConversionPattern=["+pb.getProjectName()+"] %p [%d] | %m%n\n");   
+            sb.append("log4j.rootCategory=ERROR, STDOUT \n");  
+            sb.append("log4j.appender.STDOUT=org.apache.log4j.ConsoleAppender\n");  
+            sb.append("log4j.appender.STDOUT.layout=org.apache.log4j.PatternLayout\n");  
+            sb.append("log4j.appender.STDOUT.layout.ConversionPattern=["+pb.getProjectName()+"] %p [%d] | %m%n\n");   
             
             sb.append("log4j.logger."+pb.getProjectName()+"Logger=INFO,A\n");   
             sb.append("log4j.appender.A=org.apache.log4j.DailyRollingFileAppender\n");   
@@ -59,7 +59,12 @@ public class WriteLogger {
             sb.append("log4j.appender.A.layout=org.apache.log4j.PatternLayout\n");   
             sb.append("log4j.appender.A.layout.ConversionPattern=["+pb.getProjectName()+"](%F:%L)%d|%m%n\n");  
              
-            		
+            sb.append("log4j.logger.com."+pb.getProjectName().toLowerCase()+"=INFO,B\n");   
+            sb.append("log4j.appender.B=org.apache.log4j.DailyRollingFileAppender\n");   
+            sb.append("log4j.appender.B.File=${catalina.home}/logs/"+pb.getProjectName()+"Logger_sql.log\n");   
+            sb.append("log4j.appender.B.layout=org.apache.log4j.PatternLayout\n");   
+            sb.append("log4j.appender.B.layout.ConversionPattern=["+pb.getProjectName()+"](%F:%L)%d|%m%n\n");  
+             		
             out.write(sb.toString().getBytes("utf-8"));
                  
             log.info("创建文件log4j.properties 成功！") ;     
