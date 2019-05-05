@@ -72,11 +72,14 @@ public class WriteSpring {
             sb.append("<bean id=\"propertyConfigurer\" class=\"org.springframework.beans.factory.config.PropertyPlaceholderConfigurer\">\n");  
             sb.append("        <property name=\"location\" value=\"classpath:jdbc/jdbc.properties\"/>\n");  
             sb.append("</bean>\n");
-            sb.append("<!--<bean id=\"dataSource\" class=\"org.springframework.jdbc.datasource.DriverManagerDataSource\">\n"); 
+            sb.append("<!--<bean id=\"dataSource\" class=\"org.apache.commons.dbcp.BasicDataSource\">\n"); 
             sb.append("	<property name=\"driverClassName\" value=\"${driverClassName}\"/>\n");
             sb.append("	<property name=\"url\" value=\"${url}\"/>\n"); 
             sb.append("	<property name=\"username\" value=\"${username}\"/>\n"); 
             sb.append("	<property name=\"password\" value=\"${password}\"/>\n"); 
+            sb.append("	<property name=\"maxActive\" value=\"4000\"/>\n"); 
+            sb.append("	<property name=\"maxIdle\" value=\"1000\"/>\n"); 
+            sb.append("	<property name=\"maxWait\" value=\"30000\"/>\n");  
             sb.append("</bean>-->\n");
            
             sb.append("<bean id=\"dataSource\" class=\"org.apache.commons.dbcp.BasicDataSource\">\n"); 
