@@ -656,7 +656,7 @@ public class MysqlMain {
 		 */
 		public static List getTables(){
 			List tableList = new ArrayList();
-			 /*JdbcBean jb=new JdbcBean();
+			/* JdbcBean jb=new JdbcBean();
 			 
 			Connection con = null; //表示数据库的连接对象  
 	        Statement stmt = null;  //表示数据库的更新操作  
@@ -681,25 +681,34 @@ public class MysqlMain {
 	        } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}  */
+			} */ 
+			 
 			
-			
-			//tableList.add("order_num"); 
+			tableList.add("report_tmp_prod");
+		 
+			/*tableList.add("data_tmp");
+			tableList.add("history_file");
+			tableList.add("r_prod_data_tmp");
+			tableList.add("r_sample_class_report_tmp");
+			tableList.add("report_tmp");
+			tableList.add("sample_get");
+			tableList.add("sample_kind");
+			tableList.add("sample_maintain");
+			tableList.add("sample_save");
+			tableList.add("sample_trans");
+			tableList.add("test");
+			tableList.add("test_prod");*/
+			/*tableList.add("asset"); 
+			tableList.add("department"); 
+			tableList.add("fun_list");  
+			tableList.add("prod"); 
+			tableList.add("r_asset_prod"); 
+			tableList.add("r_members_fun"); 
+			tableList.add("term_jc"); 
+			tableList.add("term_pd"); */
 			//tableList.add("rl_lov"); 
 			//tableList.add("sickness"); 
-			 
-			//tableList.add("area"); 
-			
-			//tableList.add("group_status"); 
-			 
-			/*tableList.add("member"); 
-			tableList.add("expert"); 
-			tableList.add("illness"); 
-			tableList.add("problem"); 
-			tableList.add("drive"); */
-	        tableList.add("orderspt"); 
-			 
-			
+		 
 	        return tableList;
 			
 		}

@@ -89,12 +89,24 @@ public class WriteWeb {
             sb.append("   	<url-pattern>/*</url-pattern> \n"); 
             sb.append("   </filter-mapping>\n");
           
-            sb.append("  <servlet-mapping>\n");    
-            sb.append("  	<servlet-name>default</servlet-name>\n");    
-            sb.append("  	<url-pattern>*.js</url-pattern> \n");   
-            sb.append("  	<url-pattern>*.css</url-pattern> \n");   
-            sb.append("  	<url-pattern>/upload/*</url-pattern> \n");   
-            sb.append("  </servlet-mapping> \n");
+            sb.append("   <!-- tomcat9 静态文件乱码 -->\n");
+            sb.append("   <servlet>\n");
+            sb.append("   	<servlet-name>default</servlet-name>\n");
+            sb.append("   	<servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>\n");
+            sb.append("   	<init-param>\n");
+            sb.append("   		<param-name>debug</param-name>\n");
+            sb.append("   		<param-value>0</param-value>\n");
+            sb.append("   	</init-param>\n");
+            sb.append("   	<init-param>\n");
+            sb.append("   		<param-name>fileEncoding</param-name>\n");
+            sb.append("   		<param-value>UTF-8</param-value>\n");
+            sb.append("   	</init-param>\n");
+            sb.append("   	<init-param>\n");
+            sb.append("   		<param-name>listings</param-name>\n");
+            sb.append("   		<param-value>false</param-value>\n");
+            sb.append("   	</init-param>\n");
+            sb.append("   	<load-on-startup>1</load-on-startup>\n");
+            sb.append("   </servlet> \n");
             		 
             sb.append("  <servlet>\n");
             sb.append("  	<servlet-name>spring</servlet-name>\n");

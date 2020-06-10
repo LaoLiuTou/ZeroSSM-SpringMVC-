@@ -82,7 +82,7 @@ public class WriteCORSFilter {
             sb.append("		HttpServletResponse response = (HttpServletResponse) res;  \n");
             sb.append("		request.setCharacterEncoding(\"UTF-8\"); \n");
             sb.append("		response.setCharacterEncoding(\"UTF-8\"); \n");
-            sb.append("		response.setContentType(\"text/html;charset=UTF-8\"); \n");
+            //sb.append("		response.setContentType(\"text/html;charset=UTF-8\"); \n");
             sb.append("		//CORS跨域\n");
             sb.append("		response.setHeader(\"Access-Control-Allow-Origin\", \"*\");  \n");
             sb.append("		response.setHeader(\"Access-Control-Allow-Methods\", \"POST, GET, OPTIONS, DELETE\");\n");  
