@@ -684,7 +684,7 @@ public class MysqlMain {
 			} */ 
 			 
 			
-			tableList.add("report_tmp_prod");
+			tableList.add("view_btzd");
 		 
 			/*tableList.add("data_tmp");
 			tableList.add("history_file");
